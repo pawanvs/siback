@@ -4,7 +4,10 @@ const createCRUDController = require('@/controllers/middlewaresControllers/creat
 
 const remove = require('./remove');
 const update = require('./update');
-const importData = require('./importDataInvoice');
+const importData = require('./importDataCompany');
+const importInvoiceData = require('../invoiceController/importDataInvoice');
+const expiredData = require('./expired')
+const expiresInMonth = require('./expiresInMonth')
 
 function modelController() {
   const modelName = 'Company';
@@ -13,12 +16,17 @@ function modelController() {
     throw new Error(`Model ${modelName} does not exist rii`);
   } else {
     const Model = mongoose.model(modelName);
+    const InvoiceModel = mongoose.model('Invoice');
     const methods = createCRUDController(modelName);
 
     methods.delete = (req, res) => remove(Model, req, res);
     methods.update = (req, res) => update(Model, req, res);
     methods.update = (req, res) => update(Model, req, res);
     methods.importData = (req, res) => importData(Model, req, res);
+    methods.importInvoiceData = (req, res) => importInvoiceData(InvoiceModel, req, res);
+    methods.expiredData = (req, res) => expiredData(Model, req, res);
+    methods.expiresInMonth = (req, res) => expiresInMonth(Model, req, res);
+
 
     return methods;
   }

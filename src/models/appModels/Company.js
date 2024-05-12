@@ -18,6 +18,11 @@ const schema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+
+  accountName: {
+    type: String,
+    trim: true
+  },
   number: {
     type: String,
     unique: true,
@@ -106,6 +111,48 @@ const schema = new mongoose.Schema({
       fieldValue: {},
     },
   ],
+  card_type: {
+    type: String,
+    trim: true,
+    lowercase: true,
+  },
+  card: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: 'string',
+  } , expire: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: 'string',
+  }, expire_date: {
+    type: Date,
+   
+  },
+  auto_pay: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: 'string',
+  },
+  eft_hold_date: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: 'string',
+  },
+  print_cyles: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    default: 'string',
+  }
+,
+  payment : { 
+
+
+},
   location: {
     latitude: Number,
     longitude: Number,

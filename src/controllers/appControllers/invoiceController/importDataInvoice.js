@@ -39,8 +39,6 @@ const importData = async (Model, req, res) => {
       for (let key in mapping) {
         
         edata[mapping[key]] =  row[key];
-      // Delete old k
-        // delete row[key]; 
       }
       // Check if the row is unique based on the 'name' field
       const companyObj = await Company.findOne({ number: edata.client });
@@ -56,7 +54,9 @@ const importData = async (Model, req, res) => {
 
         edata.client = clientO.id;
 
-        const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' };
+        const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' , 'currency' : 'USD' , items :[{ itemName : edata.description , description : edata.description , quantity : "1" , total : edata.total , price : edata.total}
+          
+        ]};
         // // Insert the row data into MongoDB if it's unique
         // // row.client = companyObj.id;
         await Invoice.create(ndata);

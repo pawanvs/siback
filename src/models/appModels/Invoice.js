@@ -60,7 +60,7 @@ const invoiceSchema = new mongoose.Schema({
       // },
       itemName: {
         type: String,
-        required: true,
+        // required: true,
       },
       description: {
         type: String,
@@ -68,11 +68,11 @@ const invoiceSchema = new mongoose.Schema({
       quantity: {
         type: Number,
         default: 1,
-        required: true,
+        // required: true,
       },
       price: {
         type: Number,
-        required: true,
+        // required: true,
       },
       // discount: {
       //   type: Number,
@@ -92,7 +92,7 @@ const invoiceSchema = new mongoose.Schema({
       // },
       total: {
         type: Number,
-        required: true,
+        // required: true,
       },
     },
   ],

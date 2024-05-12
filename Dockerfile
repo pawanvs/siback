@@ -1,8 +1,8 @@
-FROM node:20.9.0-alpine
+FROM node:20.13-bookworm 
 
 WORKDIR /usr/src/app
 
-RUN npm install -g npm@10.2.4
+RUN npm install -g npm@10.5.2
 
 COPY package*.json ./
 
@@ -10,6 +10,6 @@ COPY . .
 
 RUN npm install
 
-EXPOSE 8888
+EXPOSE 5000 
 
 CMD ["npm", "run", "dev"]

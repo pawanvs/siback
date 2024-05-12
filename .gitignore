@@ -17,6 +17,7 @@ logs
 /lib/
 /node_modules/
 /tmp/
+/public/
 
 # Production build directory
 /build/

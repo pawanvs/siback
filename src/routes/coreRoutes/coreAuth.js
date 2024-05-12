@@ -6,6 +6,9 @@ const { catchErrors } = require('@/handlers/errorHandlers');
 const adminAuth = require('@/controllers/coreControllers/adminAuth');
 
 const companyController = require('@/controllers/appControllers/companyController');
+
+
+const invoiceController = require('@/controllers/appControllers/invoiceController');
 const { singleStorageUpload } = require('@/middlewares/uploadMiddleware');
 
 // const rateLimit = require('express-rate-limit');
@@ -34,6 +37,20 @@ router.route('/login').post(catchErrors(adminAuth.login));
 router
   .route('/import')
   .patch(singleStorageUpload({ entity: 'admin' }), catchErrors(companyController.importData));
+
+  router
+  .route('/iimport')
+  .patch(singleStorageUpload({ entity: 'admin' }), catchErrors(companyController.importInvoiceData));
+
+  router
+  .route('/expiredData')
+  .get(catchErrors(companyController.expiredData));
+
+  router
+  .route('/expiresInMonth')
+  .get(catchErrors(companyController.expiresInMonth));
+
+  
 
 router.route('/forgetpassword').post(catchErrors(adminAuth.forgetPassword));
 router.route('/resetpassword').post(catchErrors(adminAuth.resetPassword));
