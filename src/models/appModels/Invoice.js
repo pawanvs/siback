@@ -18,7 +18,7 @@ const invoiceSchema = new mongoose.Schema({
   },
   content: String,
   description: String,
-  site: String,
+  
   recurring: {
     type: String,
     enum: ['daily', 'weekly', 'monthly', 'annually', 'quarter'],
@@ -136,6 +136,7 @@ const invoiceSchema = new mongoose.Schema({
     default: 'unpaid',
     enum: ['unpaid', 'paid', 'partially'],
   },
+  dueDate : Date,
   isOverdue: {
     type: Boolean,
     default: false,
@@ -167,6 +168,7 @@ const invoiceSchema = new mongoose.Schema({
       },
     },
   ],
+  netDue : Number,
   updated: {
     type: Date,
     default: Date.now,

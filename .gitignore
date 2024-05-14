@@ -17,10 +17,11 @@ logs
 /lib/
 /node_modules/
 /tmp/
-/public/
+/src/public/
 
 # Production build directory
 /build/
+/src/server.js
 
 # Debugging files
 .DS_Store

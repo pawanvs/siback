@@ -6,10 +6,13 @@ const Client = mongoose.model('Client');
 
 const Company = mongoose.model('Company');
 
+const People = mongoose.model('Company');
+
 const importData = async (Model, req, res) => {
   // Get the current working directory
   const currentDirectory = process.cwd();
-
+  
+  
   // Define a relative path
   const relativePath = req.upload.filePath;
 
@@ -23,8 +26,11 @@ const importData = async (Model, req, res) => {
   const sheet = workbook.Sheets[sheetName];
   const data = xlsx.utils.sheet_to_json(sheet);
 
-
-  const mapping =  { "Customer #": 'number' ,"Customer Name": 'name', 'Account Name':'accountName', "Type"  :  'card_type' , 'Card #' :  'card_number'  , "Expires" :  'expire' ,   "Auto Pay" : "auto_pay"   ,"EFT Hold Date"  : 'eft_hold_date' , 'Print Cycle Inv' : 'print_cyles'}  
+  
+  const mapping =  { "Customer Number": 'number' ,"Customer Name": 'name', 'Contact Name' : 'contact_name',
+  'Account Name':'accountName', "CC-Type"  :  'card_type' , 'CC-Last4Digits' :  'card_number'  , 
+  'Phone No':'phone','Email ID':'email',
+  "CC-ExpiryDate" :  'expire' , 'CC-NameonCC':  'name_on_card', 'SubType' : 'sub_type'}  
   
   const convertExpiryToDate =  (expiry) => {
     // Split the expiry string into month and year parts
@@ -47,8 +53,6 @@ const importData = async (Model, req, res) => {
         edata[mapping[key]] =  row[key];
       }
 
-      console.log(edata);
-      // continue;
       // Check if the row is unique based on the 'name' field
       const existingDoc = await Company.findOne({ name: edata.number });
 
@@ -57,13 +61,30 @@ const importData = async (Model, req, res) => {
         console.log(`Skipping row with name '${edata.number}' because it is not unique.`);
         continue;
       }
-      const expire_date = convertExpiryToDate(edata.expire);
+
+      let expire_date;
+      if(edata.expire == 'NA'){
+         expire_date = convertExpiryToDate('04/20');
+      }else{
+         expire_date = convertExpiryToDate(edata.expire);
+      }
+      
       let dataToInsert = { ...edata, expire_date : expire_date ,isClient: true , payment : {...edata}};
       // Insert the row data into MongoDB if it's unique
       let result = await Company.create(dataToInsert);
       console.log(`Inserted row with name '${edata.number}' into the database.`, result);
 
-      await Client.create({ company: result._id, name: result.name });
+      console.log(req.body.customerType);
+
+      if(req.body.customerType == 'Dealer'){
+
+        await Client.create({ company: result._id, name: result.name });
+      }else{
+
+        // await People.create({  });
+      }
+      
+
     } catch (error) {
       console.error('Error processing row:', error);
     }

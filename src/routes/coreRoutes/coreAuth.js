@@ -35,12 +35,17 @@ const { singleStorageUpload } = require('@/middlewares/uploadMiddleware');
 router.route('/login').post(catchErrors(adminAuth.login));
 
 router
-  .route('/import')
+  .route('/cimport')
   .patch(singleStorageUpload({ entity: 'admin' }), catchErrors(companyController.importData));
 
   router
   .route('/iimport')
   .patch(singleStorageUpload({ entity: 'admin' }), catchErrors(companyController.importInvoiceData));
+
+  router
+  .route('/oiImport')
+  .patch(singleStorageUpload({ entity: 'admin' }), catchErrors(companyController.importOpenInvoice));
+
 
   router
   .route('/expiredData')

@@ -27,7 +27,7 @@ const importData = async (Model, req, res) => {
 
 
 
-  const mapping =  { "Invoice Number"  :  'number' , 'Date' :  'date'  , "Customer Number" :  'client' ,   "Description" : "description"   ,"Invoice Amount"  : 'total'}  
+  const mapping =  { "Invoice Number"  :  'number' , 'Date' :  'date'  , "Customer Number" :  'client' ,   "Description" : "description"   ,"Amount"  : 'total'}  
   //
   //
   // Insert data into MongoDB
@@ -61,6 +61,15 @@ const importData = async (Model, req, res) => {
         // // row.client = companyObj.id;
         await Invoice.create(ndata);
         console.log(`Inserted row with name '${row.number}' into the database.`);
+      }else if(true){
+
+        edata.client = "664225b63f91b801eec1e015";
+        const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' , 'currency' : 'USD' , items :[{ itemName : edata.description , description : edata.description , quantity : "1" , total : edata.total , price : edata.total}
+          
+        ]};
+        // // Insert the row data into MongoDB if it's unique
+        // // row.client = companyObj.id;
+        await Invoice.create(ndata);
       }
     } catch (error) {
       console.error('Error processing row:', error);

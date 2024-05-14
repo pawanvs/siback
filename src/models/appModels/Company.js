@@ -90,6 +90,10 @@ const schema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  name_on_card: {
+    type: String,
+    trim: true,
+  },
   companyRegId: {
     type: String,
     trim: true,
@@ -130,25 +134,8 @@ const schema = new mongoose.Schema({
     type: Date,
    
   },
-  auto_pay: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    default: 'string',
-  },
-  eft_hold_date: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    default: 'string',
-  },
-  print_cyles: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    default: 'string',
-  }
-,
+  
+
   payment : { 
 
 

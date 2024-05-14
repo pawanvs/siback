@@ -6,6 +6,8 @@ const remove = require('./remove');
 const update = require('./update');
 const importData = require('./importDataCompany');
 const importInvoiceData = require('../invoiceController/importDataInvoice');
+const importOpenInvoice = require('../invoiceController/importOpenInvoice');
+
 const expiredData = require('./expired')
 const expiresInMonth = require('./expiresInMonth')
 
@@ -24,6 +26,8 @@ function modelController() {
     methods.update = (req, res) => update(Model, req, res);
     methods.importData = (req, res) => importData(Model, req, res);
     methods.importInvoiceData = (req, res) => importInvoiceData(InvoiceModel, req, res);
+    methods.importOpenInvoice = (req, res) => importOpenInvoice(InvoiceModel, req, res);
+    
     methods.expiredData = (req, res) => expiredData(Model, req, res);
     methods.expiresInMonth = (req, res) => expiresInMonth(Model, req, res);
 

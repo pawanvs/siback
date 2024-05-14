@@ -56,6 +56,9 @@ router.route('/setting/search').get(hasPermission(), catchErrors(settingControll
 router.route('/setting/list').get(hasPermission(), catchErrors(settingController.list));
 router.route('/setting/listAll').get(hasPermission('read'), catchErrors(settingController.listAll));
 router.route('/setting/filter').get(hasPermission(), catchErrors(settingController.filter));
+
+router.route('/setting/removeData').get(hasPermission(), catchErrors(settingController.removeData));
+
 router
   .route('/setting/readBySettingKey/:settingKey')
   .get(hasPermission('read'), catchErrors(settingController.readBySettingKey));
