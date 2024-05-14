@@ -17,7 +17,9 @@ logs
 /lib/
 /node_modules/
 /tmp/
-/src/public/
+#/src/public/uploads/admin/*
+/src/public/uploads/setting/*
+/src/public/uploads/setup/*
 
 # Production build directory
 /build/
