@@ -17,13 +17,13 @@ logs
 /lib/
 /node_modules/
 /tmp/
-#/src/public/uploads/admin/*
+/src/public/uploads/admin/*
 /src/public/uploads/setting/*
 /src/public/uploads/setup/*
-
+server.js
 # Production build directory
 /build/
-/src/server.js
+src/server.js
 
 # Debugging files
 .DS_Store

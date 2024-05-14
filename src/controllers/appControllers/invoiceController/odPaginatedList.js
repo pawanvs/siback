@@ -9,11 +9,6 @@ const paginatedList = async (req, res) => {
 
   const { sortBy = 'enabled', sortValue = -1, filter, equal } = req.query;
 
-  let mqueal = equal
-  if(equal == 'true'){
-    mqueal = true;
-  }
-
   const fieldsArray = req.query.fields ? req.query.fields.split(',') : [];
 
   let fields;
@@ -23,12 +18,19 @@ const paginatedList = async (req, res) => {
   for (const field of fieldsArray) {
     fields.$or.push({ [field]: { $regex: new RegExp(req.query.q, 'i') } });
   }
-console.log
+
+  console.log({
+    removed: false,
+
+    [filter]: equal,
+    ...fields,
+  });
+
   //  Query the database for a list of all results
   const resultsPromise = Model.find({
     removed: false,
 
-    [filter]: mqueal,
+    [filter]: equal,
     ...fields,
   })
     .skip(skip)
@@ -41,14 +43,7 @@ console.log
   const countPromise = Model.countDocuments({
     removed: false,
 
-    [filter]: mqueal,
-    ...fields,
-  });
-
-  console.log({
-    removed: false,
-
-    [filter]: mqueal,
+    [filter]: equal,
     ...fields,
   });
 

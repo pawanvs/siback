@@ -25,7 +25,7 @@ const importData = async (Model, req, res) => {
   const sheet = workbook.Sheets[sheetName];
   const data = xlsx.utils.sheet_to_json(sheet);
 
-
+console.log(data);
 
   const mapping =  { "Invoice Number"  :  'number' , 'Date' :  'date'  , "Customer Number" :  'client' ,   "Description" : "description"   ,"Amount"  : 'total'}  
   //
@@ -53,6 +53,14 @@ const importData = async (Model, req, res) => {
         console.log({ number: clientO.id });
 
         edata.client = clientO.id;
+
+      //   // Split the date string into day, month, and year
+      // const [day, month, year] = edata.date?.split('/');
+
+      //  // Create a new Date object
+      //  const formattedDate = new Date(`20${year}`, month - 1, day); // Subtract 1 from month since it is zero-based in Date
+
+      //  edata.date = formattedDate;
 
         const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' , 'currency' : 'USD' , items :[{ itemName : edata.description , description : edata.description , quantity : "1" , total : edata.total , price : edata.total}
           
