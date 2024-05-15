@@ -54,13 +54,17 @@ console.log(data);
 
         edata.client = clientO.id;
 
-      //   // Split the date string into day, month, and year
-      // const [day, month, year] = edata.date?.split('/');
+        const epochStartDate = new Date('1900-01-01');;
+        //epochStartDate.
 
-      //  // Create a new Date object
-      //  const formattedDate = new Date(`20${year}`, month - 1, day); // Subtract 1 from month since it is zero-based in Date
+        // Add number of days to the date
+        const daysToAdd = edata.date -1;
+        epochStartDate.setDate(epochStartDate.getDate() + daysToAdd);
+        console.log(row, edata.date, epochStartDate  );
+        edata.date = epochStartDate;
 
-      //  edata.date = formattedDate;
+
+
 
         const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' , 'currency' : 'USD' , items :[{ itemName : edata.description , description : edata.description , quantity : "1" , total : edata.total , price : edata.total}
           

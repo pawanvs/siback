@@ -25,7 +25,6 @@ const importData = async (Model, req, res) => {
   const sheet = workbook.Sheets[sheetName];
   const data = xlsx.utils.sheet_to_json(sheet);
 
-console.log(data);
 
   const mapping =  { "Invoice Number"  :  'number' , 'Date' :  'date'  , "Customer Number" :  'client' ,   "Description" : "description"   ,"Amount"  : 'total'}  
   //
@@ -43,24 +42,34 @@ console.log(data);
       // Check if the row is unique based on the 'name' field
       const companyObj = await Company.findOne({ number: edata.client });
 
-      console.log({ invoice : edata });
 
+
+  console.log("** Debug **")   ; 
+  return res.status(200).json({
+    success: true,
+    
+  });
       if (companyObj) {
-        // console.log({ companyObj: companyObj.id });
 
         const clientO = await Client.findOne({ company: companyObj.id });
 
-        console.log({ number: clientO.id });
-
+       
         edata.client = clientO.id;
 
-      //   // Split the date string into day, month, and year
-      // const [day, month, year] = edata.date?.split('/');
+        //epochStartDate.
+        const epochStartDate = new Date('1900-01-01');;
+        
 
-      //  // Create a new Date object
-      //  const formattedDate = new Date(`20${year}`, month - 1, day); // Subtract 1 from month since it is zero-based in Date
+        // Add number of days to the date
+        const daysToAdd = edata.date -1;
+        epochStartDate.setDate(epochStartDate.getDate() + daysToAdd);
+        console.log(row, edata.date, epochStartDate  );
+        edata.date = epochStartDate;
 
-      //  edata.date = formattedDate;
+        console.log("row data",edata);
+        continue;
+
+
 
         const ndata = { ...edata, createdBy: '6637d2b11659dd1a257c1196' , 'currency' : 'USD' , items :[{ itemName : edata.description , description : edata.description , quantity : "1" , total : edata.total , price : edata.total}
           

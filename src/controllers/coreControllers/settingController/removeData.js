@@ -9,10 +9,14 @@ const removeData = async (req, res) => {
 
   const Invoice = require('../../../models/appModels/Invoice');
 
+  const OpenInvoice = require('../../../models/appModels/OpenInvoice');
+
+
 
   await Company.deleteMany();
   await Client.deleteMany();
   await Invoice.deleteMany();
+  await OpenInvoice.deleteMany();
   
   return res.status(200).json({
     success: true,
