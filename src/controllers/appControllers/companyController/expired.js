@@ -6,12 +6,14 @@ const expired = async (Model, req, res) => {
   const today = new Date();
   const oneMonthLater = new Date(today);
   oneMonthLater.setMonth(today.getMonth() + 1);
+  oneMonthLater.setDate(+1);
+  
 
   const result = await Model.find({
     removed: false,
     expire_date: {
       // $gte: today,
-      $lt: today
+      $lt: oneMonthLater
   }
   })
     .sort({ created: sort })

@@ -6,7 +6,7 @@ const remove = require('./remove');
 const update = require('./update');
 const importData = require('./importDataCompany');
 const importInvoiceData = require('../invoiceController/importDataInvoice');
-const importOpenInvoice = require('../invoiceController/importOpenInvoice');
+const importOpenInvoice = require('../openInvoiceController/importOpenInvoice');
 
 const expiredData = require('./expired')
 const expiresInMonth = require('./expiresInMonth')
