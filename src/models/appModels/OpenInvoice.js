@@ -148,6 +148,12 @@ const openInvoiceSchema = new mongoose.Schema({
       },
     },
   ],
+  notes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Note',
+    }
+  ], 
   netDue : Number,
   terms: String,
   updated: {

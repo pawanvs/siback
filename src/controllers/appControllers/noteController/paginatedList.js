@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('OpenInvoice');
+const Model = mongoose.model('Note');
 
 const paginatedList = async (req, res) => {
   const page = req.query.page || 1;
@@ -23,6 +23,7 @@ const paginatedList = async (req, res) => {
   for (const field of fieldsArray) {
     fields.$or.push({ [field]: { $regex: new RegExp(req.query.q, 'i') } });
   }
+console.log
   //  Query the database for a list of all results
   const resultsPromise = Model.find({
     removed: false,
@@ -44,6 +45,12 @@ const paginatedList = async (req, res) => {
     ...fields,
   });
 
+  console.log({
+    removed: false,
+
+    [filter]: mqueal,
+    ...fields,
+  });
 
   // Resolving both promises
   const [result, count] = await Promise.all([resultsPromise, countPromise]);
