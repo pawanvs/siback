@@ -47,6 +47,7 @@ const importData = async (Model, req, res) => {
   console.log("** Debug **")   ; 
   return res.status(200).json({
     success: true,
+    message :'Otp Sent to your regested emial'
     
   });
       if (companyObj) {

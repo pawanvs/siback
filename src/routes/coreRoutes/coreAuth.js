@@ -60,6 +60,11 @@ router
 router.route('/forgetpassword').post(catchErrors(adminAuth.forgetPassword));
 router.route('/resetpassword').post(catchErrors(adminAuth.resetPassword));
 
+
+router.route('/request-otp').post(catchErrors(adminAuth.sendOTP));
+
+router.route('/verify-otp').post(catchErrors(adminAuth.verifyOTP));
+
 router.route('/logout').post(adminAuth.isValidAuthToken, catchErrors(adminAuth.logout));
 
 module.exports = router;

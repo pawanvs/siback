@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Model = mongoose.model('Role');
+const Model = mongoose.model('Note');
 
 const read = async (req, res) => {
   // Find document by id
