@@ -6,6 +6,10 @@ const roleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  removed: {
+    type: Boolean,
+    default: false,
+  },
   createdBy: { 
     type: mongoose.Schema.ObjectId, 
     ref: 'Admin', 

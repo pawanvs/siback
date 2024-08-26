@@ -2,6 +2,7 @@ const listAll = async (Model, req, res) => {
   const sort = req.query.sort || 'desc';
   const enabled = req.query.enabled || undefined;
 
+  // console.log("listing models==",Model)
   //  Query the database for a list of all results
 
   let result;

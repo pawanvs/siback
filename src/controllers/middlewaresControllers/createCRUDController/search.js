@@ -17,7 +17,7 @@ const search = async (Model, req, res) => {
   for (const field of fieldsArray) {
     fields.$or.push({ [field]: { $regex: new RegExp(req.query.q, 'i') } });
   }
-  // console.log(fields)
+  console.log(fields);
 
   let results = await Model.find({
     ...fields,

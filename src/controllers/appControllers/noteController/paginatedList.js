@@ -45,12 +45,7 @@ console.log
     ...fields,
   });
 
-  console.log({
-    removed: false,
-
-    [filter]: mqueal,
-    ...fields,
-  });
+ 
 
   // Resolving both promises
   const [result, count] = await Promise.all([resultsPromise, countPromise]);
