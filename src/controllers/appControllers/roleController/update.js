@@ -1,27 +1,44 @@
 const mongoose = require('mongoose');
-
-const Model = mongoose.model('Role');
-
+const Role = mongoose.model('Role'); // Ensure 'Role' schema is defined
 
 const update = async (req, res) => {
-  let body = req.body;
+  try {
+    const body = req.body;
 
+    console.log(req.params.id);
 
+    const role = await Role.findById(req.params.id);
 
- 
-  // Find document by id and updates with the required fields
+    console.log(role);
 
-  const result = await Model.findOneAndUpdate({ _id: req.params.id, removed: false }, body, {
-    new: true, // return the new result instead of the old one
-  }).exec();
+    // Find document by _id instead of id, unless explicitly stored as id
+    const result = await Role.findOneAndUpdate(
+      { _id: req.params.id }, // Use _id for MongoDB documents
+      body,
+      { new: true } // Return the updated document
+    ).exec();
 
-  // Returning successfull response
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'Role not found or already removed',
+      });
+    }
 
-  return res.status(200).json({
-    success: true,
-    result,
-    message: 'Role Updated',
-  });
+    // Returning successful response
+    return res.status(200).json({
+      success: true,
+      result,
+      message: 'Role Updated',
+    });
+  } catch (error) {
+    // Handle errors
+    return res.status(500).json({
+      success: false,
+      message: 'Error updating role',
+      error: error.message,
+    });
+  }
 };
 
 module.exports = update;
