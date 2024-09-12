@@ -12,11 +12,18 @@ const OTP = require("../../../models/appModels/OTP");
 
 async function sendOTPMail(email, otp) {
   const mailOptions = {
-      from: 'helpdesk.yesminds@gmail.com', // Your Email Id
+      from: 'pawan.vs@gmail.com', // Your Email Id
       to: email,
-      to: "ranganath.cse@gmail.com  ",
-      subject: 'OTP Verification',
-      text: `Your OTP for verification is:${otp}`
+      subject: 'OTP for portal login',
+      text: `Dear User,
+
+      One Time Password (OTP) to log into Portal is ${otp}
+      
+      Please Note:
+      We will never send you an email asking for your Login Credentials. Please do not respond to any email requesting such information.
+      
+      Disclaimer: The information in this email is intended solely for the recipient and may be privileged and confidential. If you receive it in error, please notify the sender immediately and delete the message. Unauthorized use, disclosure, or copying of this email is prohibited. Beware of online banking fraud! If you receive an email with wire instructions, always verify with escrow before transferring funds. Your diligence can prevent financial loss and protect your assets.
+      `
   };
 
   //USER="pavanm9071227065@gmail.com"
@@ -24,8 +31,8 @@ async function sendOTPMail(email, otp) {
   let transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-          user: 'pavanm9071227065@gmail.com', // Your Email Id
-          pass: 'xjdd pykw psxg hhcy' // Your Password
+          user: 'pawan.vs@gmail.com', // Your Email Id
+          pass: 'dhpl xbfs ltsa xpoe' // Your Password
       },
       tls: {
               rejectUnauthorized: false // Disable certificate validation (if necessary)

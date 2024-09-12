@@ -20,7 +20,7 @@ const verifyOTP = async (req, res, { userModel }) => {
       res.json({ success: true, message: 'OTP verified successfully' });
     } else {
       //res.status(400).json({ message: 'Invalid OTP' });
-      //res.json({ success: false, message: 'Unable to verify the otp' });
+      // res.json({ success: false, message: 'Unable to verify the otp' });
       res.json({ success: true, message: 'OTP verified successfully' });
     }
 

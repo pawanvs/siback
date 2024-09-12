@@ -13,6 +13,8 @@ async function setupApp() {
     const AdminPassword = require('../models/coreModels/AdminPassword');
     const newAdminPassword = new AdminPassword();
 
+    const Roles = require('../models/appModels/Role');
+
     const salt = uniqueId();
 
     const passwordHash = newAdminPassword.generateHash(salt, 'admin123');
@@ -35,6 +37,20 @@ async function setupApp() {
     await new AdminPassword(AdminPasswordData).save();
 
     console.log('👍 Admin created : Done!');
+
+
+    await Roles.insertMany([ {name: "owner",
+    permissions: {
+      dashboardModule: true,
+      customerModule: true,
+      openInvoiceModule: true,
+      companyModule: true,
+      invoiceModule: true,
+      settingsModule: true
+    }}])
+
+    console.log('Role permissions added');
+
 
     const Setting = require('../models/coreModels/Setting');
 
