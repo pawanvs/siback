@@ -19,7 +19,7 @@ const server = https.createServer(options, (req, res) => {
 });
 
 server.listen(port, host, () => {
-   console.log('SI Back running at http://%s:%s',host,port );
+   console.log('SI Back running at https://%s:%s',host,port );
 });
 
 
