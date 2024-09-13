@@ -2,38 +2,46 @@ require('module-alias/register');
 const mongoose = require('mongoose');
 const { globSync } = require('glob');
 const path = require('path');
+const fs = require('fs'); // Import fs to read certificate files
+const https = require('https'); // Import https for HTTPS server
 
-// Make sure we are running node 7.6+
+// Ensure correct Node.js version
 const [major, minor] = process.versions.node.split('.').map(parseFloat);
 if (major < 20) {
-  console.log('Please upgrade your node.js version at least 20 or greater. 👌\n ');
+  console.log('Please upgrade your node.js version to at least 20 or greater. 👌\n ');
   process.exit();
 }
 
-// import environmental variables from our variables.env file
+// Import environmental variables from .env files
 require('dotenv').config({ path: '.env' });
 require('dotenv').config({ path: '.env.local' });
 
+// Connect to MongoDB
 mongoose.connect(process.env.DATABASE);
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
 mongoose.connection.on('error', (error) => {
-  console.log(
-    `1. 🔥 Common Error caused issue → : check your .env file first and add your mongodb url`
-  );
-  console.error(`2. 🚫 Error → : ${error.message}`);
+  console.log(`1. 🔥 Common Error: check your .env file first and add your MongoDB URL`);
+  console.error(`2. 🚫 Error: ${error.message}`);
 });
 
+// Load models
 const modelsFiles = globSync('./src/models/**/*.js');
-
 for (const filePath of modelsFiles) {
   require(path.resolve(filePath));
 }
 
-// Start our supper app!
+// Start Express app
 const app = require('./app');
 app.set('port', process.env.PORT || 8000);
-const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → On PORT : ${server.address().port}`);
+
+// Load Let's Encrypt SSL certificates
+const httpsOptions = {
+  key: fs.readFileSync('niv/privkey1.pem'),   // Private key
+  cert: fs.readFileSync('niv/fullchain1.pem'), // Full chain certificate
+  ca: fs.readFileSync('niv/chain1.pem'),      // Certificate authority chain (optional)
+  };
+
+// Create HTTPS server
+const server = https.createServer(httpsOptions, app).listen(app.get('port'), () => {
+  console.log(`SI Express HTTPS Server running → On PORT: ${server.address().port}`);
 });
